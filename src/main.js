@@ -1,4 +1,3 @@
-const { Socket } = require('dgram');
 const express = require('express');
 const app = express();
 const { Server: HttpServer } = require('http');
@@ -11,27 +10,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(publicRoute));
 
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
+
 //CONTENEDOR
 
 const productos = new Contenedor('./src/DB/productos.txt');
 
 app.get('/', (req, res) => {
     res.send('index.html', { root: publicRoute });
-})
-const server = HttpServer.listen(PORT, () => {
+});
+// app.post('/productos', (req, res) => {
+//     res
+// })
+const server = httpServer.listen(PORT, () => {
     console.log(`Server listening from: ${server.address().port}`);
 });
 server.on('error', error => console.log(`error ${error}`));
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
     console.log('Nuevo cliente');
 
-    const listaProductos = productos.getAll();
-    socket.emit('producto', listaProductos);
+    const listaProductos = await productos.getAll();
+    socket.emit('nuevaConexion', listaProductos);
 
-    socket.on("new-producto", (data) => {
+    socket.on("nuevoProducto", (data) => {
         productos.save(data);
-        const lista = productos.getAll();
         io.socket.emit('producto', data);
     });
 });
