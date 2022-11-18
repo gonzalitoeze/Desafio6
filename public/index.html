@@ -9,9 +9,13 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="index.js"></script>
 </head>
-<body>
-    <nav>
-
+<body class="bg-dark" style="color: white;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="#">Inicio</a>
+          <a class="navbar-brand" href="#">Vista de Productos</a>
+          <a class="navbar-brand" href="#">ChatMessenger</a>
+        </div>
     </nav>
     <header class="container" style="padding-top: 5%;">
         <h1>Formulario de productos</h1>
@@ -48,11 +52,11 @@
     <div class="container" style="padding-top: 3%; padding-bottom: 5%;">
         <h2 style="padding-bottom: 3%;">Centro de Mensajería</h2>
         <form onsubmit="return addMessage(this)">
-            <input type="email" id="username" placeholder="Em@il" class="form-control"></br>
-            <input type="text" id="text" placeholder="Message" class="form-control"></form>
-            <hr>
-            <input type="submit" value="Enviar" class="btn btn-success"> 
+            <input type="email" id="email" placeholder="Em@il" class="form-control"></br>
+            <input type="text" id="texto" placeholder="Message" class="form-control"></form><br>
+            <input type="submit" class="btn btn-success" value="Enviar">
         </form>
+        <hr>
         <div id="messages"></div>
     </div>
 </body>

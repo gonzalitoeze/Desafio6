@@ -1,3 +1,4 @@
+const moment = require('moment')
 const express = require('express');
 const app = express();
 const { Server: HttpServer } = require('http');
@@ -16,6 +17,7 @@ const io = new IOServer(httpServer);
 //CONTENEDOR
 
 const productos = new Contenedor('./src/DB/productos.txt');
+const messages = new Contenedor('./src/DB/mensajes.txt');
 
 app.get('/', (req, res) => {
     res.send('index.html', { root: publicRoute });
@@ -37,5 +39,15 @@ io.on('connection', async (socket) => {
     socket.on("nuevoProducto", (data) => {
         productos.save(data);
         io.socket.emit('producto', data);
+    });
+
+    const listaMensajes = await messages.getAll();
+    socket.emit('messages', listaMensajes);
+
+    socket.emit('messages', messages);
+    socket.on('new-message', data => {
+        data.time = moment(new Date()).format('DD/MM/YYYY hh:mm:ss');
+        messages.push(data);
+        io.sockets.emit('messages', messages);
     });
 });
