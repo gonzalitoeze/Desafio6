@@ -31,7 +31,7 @@ socket.on('productos', data => {
     renderProducto(data);
 });
 
-function addProduct(e) {
+function addProductos(e) {
     const producto = {
         nombre: document.getElementById("nombre").value,
         precio: document.getElementById("precio").value,
