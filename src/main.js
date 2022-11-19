@@ -22,9 +22,11 @@ const messages = new Contenedor('./src/DB/mensajes.txt'); //mensajes
 app.get('/', (req, res) => {
     res.send('index.html', { root: publicRoute });
 });
+
 // app.post('/productos', (req, res) => {
 //     res
-// })
+// });
+
 const server = httpServer.listen(PORT, () => {
     console.log(`Server listening from: ${server.address().port}`);
 });
@@ -38,7 +40,7 @@ io.on('connection', async (socket) => {
 
     socket.on("nuevoProducto", (data) => {
         productos.save(data);
-        io.socket.emit('producto', data);
+        io.sockets.emit('producto', data);
     });
 
     const listaMensajes = await messages.getAll();
