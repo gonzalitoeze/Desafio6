@@ -16,5 +16,17 @@
         "text": "Alo! Tienen walkie talkies?",
         "time": "18/11/2022 01:07:00",
         "id": 3
+    },
+    {
+        "id": 4,
+        "email": "gonzabarreiro7@gmail.com",
+        "text": "Buenos días!",
+        "time": "22/11/2022 05:22:25"
+    },
+    {
+        "id": 5,
+        "email": "camipaglilla@hotmail.com",
+        "text": "Hola!",
+        "time": "22/11/2022 05:28:03"
     }
 ]

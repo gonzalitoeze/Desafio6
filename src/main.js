@@ -46,7 +46,7 @@ io.on('connection', async (socket) => {
     const listaMensajes = await messages.getAll();
     socket.emit('messages', listaMensajes);
 
-    socket.on('new-message', async data => {
+    socket.on('nuevoMensaje', async data => {
         data.time = moment(new Date()).format('DD/MM/YYYY hh:mm:ss');
         await messages.save(data);
         const listaMensajes = await messages.getAll();
